@@ -1,6 +1,6 @@
 package com.epam.test.automation.java.practice14;
 
-import com.epam.test.automation.java.practice14.middle.Task6;
+import com.epam.test.automation.java.practice14.middle.Task7;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,11 +9,10 @@ import java.util.List;
 
 public class Task7Test {
 
-    @Test(description = "")
+    @Test(description = " Calculate the symmetrical difference between two subsets of integer values")
     public void test1() {
-        List<String> actual = Task6.shouldReturnStringWithFirstLetterDigitAndLengthEqualsNumber(Arrays
-                .asList(new Integer[]{1, 3, 4}),Arrays.asList("1aa", "aaa", "1", "a"));
-        List<String> expected = Arrays.asList("1", "1aa", "Not Found");
+        List<Integer> actual = Task7.getSortedDifferenceBetweenSubsets(5,Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
+        List<Integer> expected = Arrays.asList(new Integer[]{9, 7, 4, 2});
         Assert.assertEquals(actual.toString(), expected.toString());
     }
 }
