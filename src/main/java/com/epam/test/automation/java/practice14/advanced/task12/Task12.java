@@ -8,3 +8,23 @@ public class Task12 {
         return null;
     }
 }
+
+/*A sequence of positive integers integerList1 and integerList2 are given. All values in each
+sequence are different.
+Get a set (list of NumberPair values) of all value pairs that satisfy the following conditions:
+the first element of the pair belongs to the sequence integerList1, the second belongs to
+integerList2, and both elements end with the same digit. The NumberPair type includes
+<value_1> <value_2> fields. The resulting NumberPair list must be sorted in ascending order
+by the first field, and if they are equal, by the second.
+
+Дана последовательность положительных целых чисел integerList1 и integerList2. Все значения в каждом
+Последовательности разные.
+Получите набор (список значений NumberPair) всех пар значений, удовлетворяющих следующим условиям:
+первый элемент пары принадлежит последовательности integerList1, второй принадлежит
+integerList2, и оба элемента заканчиваются одной и той же цифрой. Тип NumberPair включает
+<value_1> <value_2> поля. Полученный список NumberPair необходимо отсортировать в порядке возрастания.
+по первому полю и, если они равны, по второму.
+
+For example:
+input: {1, 2, 33, 44}, {11, 22, 13}
+output: {NumberPair(1, 11), NumberPair(2, 22), NumberPair(3, 33)}*/
