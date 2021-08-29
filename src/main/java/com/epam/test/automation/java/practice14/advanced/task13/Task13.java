@@ -3,13 +3,35 @@ package com.epam.test.automation.java.practice14.advanced.task13;
 import com.epam.test.automation.java.practice14.advanced.Entrant;
 import com.epam.test.automation.java.practice14.advanced.YearSchoolStat;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task13 {
 
     public static List<YearSchoolStat> getYearSchoolStatList(List<Entrant> nameList, List<Integer> yearList) {
-        //TODO: Write your own solution in the return statement;
-        return null;
+        Map<Integer,Integer> map = new TreeMap<>();
+        List<YearSchoolStat> result = new ArrayList<>();
+        for (Integer year: yearList) {
+            map.put(year, 0);
+        }
+        nameList.sort(Comparator.comparing(o -> o.getYearOfEntering()));
+        int count = 0;
+        int year = 0;
+        List<Integer> schools = new ArrayList();
+        for (Entrant name : nameList) {
+            if (name.getYearOfEntering() != year) {
+                count = 0;
+                schools.clear();
+            }
+            if (map.containsKey(name.getYearOfEntering()) && !(schools.contains(name.getSchoolNumber()))){
+                count++;
+                schools.add(name.getSchoolNumber());
+                year = name.getYearOfEntering();
+                map.put(year,count);
+                }
+            }
+        map.forEach((k,v) -> result.add(new YearSchoolStat(k,v)));
+        return result.stream().sorted(Comparator.comparingInt(YearSchoolStat::getNumberOfSchools)).collect(Collectors.toList());
     }
 }
 
