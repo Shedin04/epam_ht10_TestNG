@@ -1,22 +1,17 @@
 package com.epam.test.automation.java.practice14.middle;
 
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Task10 {
     public static List<Character> getSortedLastLettersInUpperCase(List<String> stringList) {
 
-        List<Character> result = stringList.stream()
+        return stringList.stream()
                 .map(str -> str.toUpperCase(Locale.ROOT))
-                .sorted(((o1, o2) -> o2.charAt(0) - o1.charAt(0)))
-                .map(s -> (s.charAt(1) + "").toUpperCase())
-                .map(s -> s.charAt(0))
+                .map(str -> str.length() + "" + str.charAt(str.length()-1))
+                .sorted(Comparator.reverseOrder())
+                .map(str -> str.charAt(1))
                 .collect(Collectors.toList());
-
-        System.out.println(result.toString());
-        return null;
     }
 }
 
