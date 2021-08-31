@@ -1,12 +1,26 @@
 package com.epam.test.automation.java.practice14.advanced.task14;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.epam.test.automation.java.practice14.advanced.YearSchoolStat;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task14 {
     public static List<ShopWithMaxDiscountOwner> getShopsWithMaxDiscountOwners(List<Supplier> supplierList, List<SupplierDiscount> supplierDiscountList) {
-        List<ShopWithMaxDiscountOwner> list = new ArrayList<>();
-        return list;
+        Map customerAndStore = new TreeMap();
+        int tempdiscount = 0;
+        String tempname = null;
+        for (int i = 0; i < supplierList.size(); i++) {
+            if (supplierDiscountList.get(i).getStoreName() != tempname) tempdiscount = 0;
+            tempname = supplierDiscountList.get(i).getStoreName();
+            if (supplierDiscountList.get(i).getDiscountPercentage() > tempdiscount) {
+                tempdiscount = supplierDiscountList.get(i).getDiscountPercentage();
+                customerAndStore.put(supplierDiscountList.get(i).getStoreName(), supplierList.get(i));
+            }
+        }
+
+        System.out.println(customerAndStore);
+        return null;
     }
 }
 

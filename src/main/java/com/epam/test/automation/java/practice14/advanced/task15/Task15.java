@@ -1,12 +1,40 @@
 package com.epam.test.automation.java.practice14.advanced.task15;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Task15 {
 
     public static List<CountryStat> name(List<Good> goodList, List<StorePrice> storePriceList) {
-        List<CountryStat> result = new ArrayList();
+    List<CountryStat> result = new ArrayList<>();
+        int tempid = 1;
+        BigDecimal tempprice = storePriceList.get(0).getPrice();
+        int number = 0;
+        String tempcountry = goodList.get(0).getCountryOfOrigin();
+
+        for (int i = 0; i < storePriceList.size(); i++) {
+            if (tempid == storePriceList.get(i).getProductSKU()){
+                if (storePriceList.get(i).getPrice().compareTo(tempprice) <= 0) {
+                    tempprice = storePriceList.get(i).getPrice();
+                    if (number>0) tempcountry = goodList.get(i-number).getCountryOfOrigin();
+                    number++;
+                }
+                else {result.add(new CountryStat(tempcountry, number, tempprice));
+                tempcountry = goodList.get(i).getCountryOfOrigin();
+                }
+            } else {
+                result.add(new CountryStat(tempcountry, number, tempprice));
+                number=1;
+                if (result.size() < storePriceList.size()-1) {
+                    tempprice = storePriceList.get(i).getPrice();
+                    i--;
+                    tempcountry = goodList.get(i).getCountryOfOrigin();
+                }
+            }
+            tempid = storePriceList.get(i).getProductSKU();
+        }
         return result;
     }
 }
