@@ -2,7 +2,6 @@ package com.epam.test.automation.java.practice14.advanced.task15;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Task15 {

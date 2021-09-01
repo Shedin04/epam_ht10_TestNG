@@ -1,13 +1,11 @@
 package com.epam.test.automation.java.practice14.advanced.task14;
 
-import com.epam.test.automation.java.practice14.advanced.YearSchoolStat;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Task14 {
     public static List<ShopWithMaxDiscountOwner> getShopsWithMaxDiscountOwners(List<Supplier> supplierList, List<SupplierDiscount> supplierDiscountList) {
-        Map customerAndStore = new TreeMap();
+        Map<String, Supplier> customerAndStore = new TreeMap<>();
         int tempdiscount = 0;
         String tempname = null;
         for (int i = 0; i < supplierList.size(); i++) {
@@ -18,9 +16,9 @@ public class Task14 {
                 customerAndStore.put(supplierDiscountList.get(i).getStoreName(), supplierList.get(i));
             }
         }
-
-        System.out.println(customerAndStore);
-        return null;
+        return customerAndStore.entrySet().stream()
+                .map(stringSupplierEntry -> (new ShopWithMaxDiscountOwner(stringSupplierEntry.getKey(), stringSupplierEntry.getValue())))
+                .collect(Collectors.toList());
     }
 }
 
