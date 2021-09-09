@@ -6,6 +6,8 @@ import java.util.stream.*;
 
 public class Task9 {
 
+    private Task9(){}
+
     public static List<String> shouldReturnStringListWithLengthAndFirstLetter(List<String> stringList) {
 
         return stringList.stream().map(string -> new AbstractMap.SimpleEntry<>(string.charAt(0), string.length()))

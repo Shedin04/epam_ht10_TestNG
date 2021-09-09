@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 public class Task6 {
 
+    private Task6(){}
+
     public static List<String> shouldReturnStringWithFirstLetterDigitAndLengthEqualsNumber
             (List<Integer> numbers, List<String> stringList){
         return numbers.stream().map(num -> stringList.stream()

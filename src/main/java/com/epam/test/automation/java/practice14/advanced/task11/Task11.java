@@ -7,9 +7,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Task11 {
+
+    private Task11(){}
+
     public static List<YearSchoolStat> getYearSchoolStats(List<Entrant> entrantList) {
 
-        Map<Integer, Integer> counts = new TreeMap<Integer, Integer>();
+        Map<Integer, Integer> counts = new TreeMap<>();
 
         int school = 0;
         for (Entrant str : entrantList) {

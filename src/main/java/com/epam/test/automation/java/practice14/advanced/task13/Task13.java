@@ -8,13 +8,15 @@ import java.util.stream.Collectors;
 
 public class Task13 {
 
+    private Task13(){}
+
     public static List<YearSchoolStat> getYearSchoolStatList(List<Entrant> nameList, List<Integer> yearList) {
         Map<Integer,Integer> map = new TreeMap<>();
         List<YearSchoolStat> result = new ArrayList<>();
         for (Integer year: yearList) {
             map.put(year, 0);
         }
-        nameList.sort(Comparator.comparing(o -> o.getYearOfEntering()));
+        nameList.sort(Comparator.comparing(Entrant::getYearOfEntering));
         int count = 0;
         int year = 0;
         List<Integer> schools = new ArrayList();

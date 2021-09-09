@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Task10 {
+
+    private Task10(){}
+
     public static List<Character> getSortedLastLettersInUpperCase(List<String> stringList) {
 
         return stringList.stream()

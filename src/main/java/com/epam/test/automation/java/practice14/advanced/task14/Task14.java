@@ -4,12 +4,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Task14 {
+
+    private Task14(){}
+
     public static List<ShopWithMaxDiscountOwner> getShopsWithMaxDiscountOwners(List<Supplier> supplierList, List<SupplierDiscount> supplierDiscountList) {
         Map<String, Supplier> customerAndStore = new TreeMap<>();
         int tempdiscount = 0;
         String tempname = null;
         for (int i = 0; i < supplierList.size(); i++) {
-            if (supplierDiscountList.get(i).getStoreName() != tempname) tempdiscount = 0;
+            if (!supplierDiscountList.get(i).getStoreName().equals(tempname)) tempdiscount = 0;
             tempname = supplierDiscountList.get(i).getStoreName();
             if (supplierDiscountList.get(i).getDiscountPercentage() > tempdiscount) {
                 tempdiscount = supplierDiscountList.get(i).getDiscountPercentage();

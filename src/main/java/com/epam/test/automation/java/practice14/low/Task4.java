@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 public class Task4 {
 
+    private Task4(){}
+
     public static List<String> filterAndSortByLastDigit(int number, List<String> stringList) {
         return stringList.stream().filter(s -> s.length()==number && Character.isDigit(s.charAt(s.length()-1))).sorted()
                 .collect(Collectors.toList());

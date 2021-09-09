@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Task15 {
 
+    private Task15(){}
+
     public static List<CountryStat> name(List<Good> goodList, List<StorePrice> storePriceList) {
     List<CountryStat> result = new ArrayList<>();
         int tempid = 1;
