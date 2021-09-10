@@ -41,6 +41,7 @@ public class Task15Test {
                 new StorePrice(2, "BigShop", BigDecimal.valueOf(14.2))));
         List<CountryStat> expected = Arrays.asList(
                 new CountryStat("Belarus", 3, BigDecimal.valueOf(13)),
+                new CountryStat("England",0,BigDecimal.ZERO),
                 new CountryStat("Poland",5,BigDecimal.valueOf(9.75)),
                 new CountryStat("Russia",3,BigDecimal.valueOf(13.65)),
                 new CountryStat("Ukraine", 5, BigDecimal.valueOf(10.5)));
