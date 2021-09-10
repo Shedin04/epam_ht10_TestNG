@@ -8,19 +8,24 @@ public class Task14 {
     private Task14(){}
 
     public static List<ShopWithMaxDiscountOwner> getShopsWithMaxDiscountOwners(List<Supplier> supplierList, List<SupplierDiscount> supplierDiscountList) {
-        Map<String, Supplier> customerAndStore = new TreeMap<>();
-        int tempdiscount = 0;
-        String tempname = null;
-        for (int i = 0; i < supplierList.size(); i++) {
-            if (!supplierDiscountList.get(i).getStoreName().equals(tempname)) tempdiscount = 0;
-            tempname = supplierDiscountList.get(i).getStoreName();
-            if (supplierDiscountList.get(i).getDiscountPercentage() > tempdiscount) {
-                tempdiscount = supplierDiscountList.get(i).getDiscountPercentage();
-                customerAndStore.put(supplierDiscountList.get(i).getStoreName(), supplierList.get(i));
-            }
-        }
+        Map<String, Supplier> customerAndStore = new HashMap<>();
+        final int[] tempdiscount = {0};
+        final String[] tempname = {null};
+
+
+        supplierDiscountList.stream().forEach(supplierDiscount ->
+                supplierList.stream().forEach(supplier->
+                {
+                    if(supplier.getCustomerId() == supplierDiscount.getCustomerId() && tempdiscount[0]<supplierDiscount.getDiscountPercentage()){
+                        customerAndStore.put(supplierDiscount.getStoreName(),supplier);
+                        tempdiscount[0] = supplierDiscount.getDiscountPercentage();
+                        tempname[0] = supplierDiscount.getStoreName();
+                    }
+                    if (!tempname[0].equals(supplierDiscount.getStoreName())) tempdiscount[0]=0;
+                }));
         return customerAndStore.entrySet().stream()
                 .map(stringSupplierEntry -> (new ShopWithMaxDiscountOwner(stringSupplierEntry.getKey(), stringSupplierEntry.getValue())))
+                .sorted(Comparator.comparing(ShopWithMaxDiscountOwner::getStoreName))
                 .collect(Collectors.toList());
     }
 }

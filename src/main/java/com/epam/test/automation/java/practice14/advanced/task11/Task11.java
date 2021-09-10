@@ -14,22 +14,22 @@ public class Task11 {
 
         Map<Integer, Integer> counts = new TreeMap<>();
 
-        int school = 0;
-        for (Entrant str : entrantList) {
+        final int[] school = {0};
+        entrantList.stream().forEach(str -> {
             int count = 1;
             if (counts.containsKey(str.getYearOfEntering())) {
-                if (school != str.getSchoolNumber())
+                if (school[0] != str.getSchoolNumber())
                     count++;
                 counts.put(str.getYearOfEntering(), count);
-                school = str.getSchoolNumber();
+                school[0] = str.getSchoolNumber();
             } else {
                 counts.put(str.getYearOfEntering(), count);
             }
-        }
+        });
 
         List <YearSchoolStat> result = new ArrayList<>();
-
         counts.forEach((k,v) -> result.add(new YearSchoolStat(k,v)));
+
         return result.stream().sorted(Comparator.comparing(YearSchoolStat::getNumberOfSchools))
                 .collect(Collectors.toList());
     }

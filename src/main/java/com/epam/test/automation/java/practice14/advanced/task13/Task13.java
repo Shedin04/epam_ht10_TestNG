@@ -13,9 +13,9 @@ public class Task13 {
     public static List<YearSchoolStat> getYearSchoolStatList(List<Entrant> nameList, List<Integer> yearList) {
         Map<Integer,Integer> map = new TreeMap<>();
         List<YearSchoolStat> result = new ArrayList<>();
-        for (Integer year: yearList) {
-            map.put(year, 0);
-        }
+
+        yearList.stream().forEach(year -> map.put(year,0));
+
         nameList.sort(Comparator.comparing(Entrant::getYearOfEntering));
         int count = 0;
         int year = 0;

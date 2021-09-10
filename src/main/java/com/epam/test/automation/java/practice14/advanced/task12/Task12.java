@@ -1,6 +1,7 @@
 package com.epam.test.automation.java.practice14.advanced.task12;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,18 +10,16 @@ public class Task12 {
     private Task12(){}
 
     public static List<NumberPair> makeNumberPairsFromTwoList(List<Integer> integerList1, List<Integer> integerList2) {
-        List<NumberPair> result = new ArrayList<>();
+        List<NumberPair> result = new ArrayList<>(integerList1.size());
 
-        List<String> stringList1 = integerList1.stream().map(Object::toString)
-                .collect(Collectors.toList());
-        List<String> stringList2 = integerList2.stream().map(Object::toString)
-                .collect(Collectors.toList());
-
-            for (int i = 0; i < integerList2.size(); i++) {
-                if (stringList1.get(i).charAt(stringList1.get(i).length()-1) == stringList2.get(i).charAt(stringList2.get(i).length()-1))
-                    result.add(new NumberPair((Integer.valueOf(stringList1.get(i))),(Integer.valueOf(stringList2.get(i)))));
-                }
-        return result;
+                    integerList1.stream().forEach(list1 ->
+                            integerList2.stream().forEach(list2 ->
+                            {
+                                if (list1 % 10 == list2 % 10) {
+                                    result.add(new NumberPair(list1,list2));
+                                }
+                            }));
+            return result.stream().sorted(Comparator.comparing(NumberPair::getValue1)).collect(Collectors.toList());
     }
 }
 

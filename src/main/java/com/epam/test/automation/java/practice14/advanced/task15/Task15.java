@@ -1,42 +1,55 @@
 package com.epam.test.automation.java.practice14.advanced.task15;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task15 {
 
     private Task15(){}
 
     public static List<CountryStat> name(List<Good> goodList, List<StorePrice> storePriceList) {
-    List<CountryStat> result = new ArrayList<>();
-        int tempid = 1;
-        BigDecimal tempprice = storePriceList.get(0).getPrice();
-        int number = 0;
-        String tempcountry = goodList.get(0).getCountryOfOrigin();
+        goodList.forEach(good -> System.out.println("goods: " + good.getProductSKU() + ", " + good.getCountryOfOrigin()));
+        storePriceList.stream().forEach(store -> System.out.println("stores: " + store.getProductSKU() + ", " + store.getPrice()));
 
-        for (int i = 0; i < storePriceList.size(); i++) {
-            if (tempid == storePriceList.get(i).getProductSKU()){
-                if (storePriceList.get(i).getPrice().compareTo(tempprice) <= 0) {
-                    tempprice = storePriceList.get(i).getPrice();
-                    if (number>0) tempcountry = goodList.get(i-number).getCountryOfOrigin();
-                    number++;
-                }
-                else {result.add(new CountryStat(tempcountry, number, tempprice));
-                tempcountry = goodList.get(i).getCountryOfOrigin();
-                }
-            } else {
-                result.add(new CountryStat(tempcountry, number, tempprice));
-                number=1;
-                if (result.size() < storePriceList.size()-1) {
-                    tempprice = storePriceList.get(i).getPrice();
-                    i--;
-                    tempcountry = goodList.get(i).getCountryOfOrigin();
-                }
+        List<CountryStat> result = new ArrayList<>();
+
+        Map<String,BigDecimal> temp = new HashMap<>();
+        Map<String,Integer> countOfShops = new HashMap<>();
+
+        BigDecimal[] tempPrice = {storePriceList.get(0).getPrice()};
+        String[] tempCountry = {goodList.get(0).getCountryOfOrigin()};
+        int[] i = {1};
+
+        goodList.stream().forEach(good -> storePriceList.forEach(store -> {
+            System.out.println(tempCountry[0] + " | fact: " + good.getCountryOfOrigin() + "  " + tempPrice[0] + " | fact: " + store.getPrice());
+            if (!good.getCountryOfOrigin().equals(tempCountry[0])) {
+                System.out.println("test");
+                i[0]=1;
             }
-            tempid = storePriceList.get(i).getProductSKU();
+            System.out.println(good.getProductSKU() + "  " + store.getProductSKU());
+            if (good.getProductSKU() == store.getProductSKU()){
+                System.out.println("test2");
+                if (!tempCountry[0].equals(good.getCountryOfOrigin())) tempPrice[0] = store.getPrice();
+                System.out.println(tempPrice[0] + "   " + store.getPrice());
+            if (tempPrice[0].compareTo(store.getPrice())>= 0) {
+                System.out.println("test3");
+                temp.put(good.getCountryOfOrigin(),store.getPrice());
+                tempPrice[0] = store.getPrice();
+            }
+                countOfShops.put(good.getCountryOfOrigin(), i[0]++);
+            tempCountry[0] = good.getCountryOfOrigin();
         }
-        return result;
+            System.out.println(temp);
+        }));
+
+        temp.entrySet().forEach(map ->{
+                result.add(new CountryStat(map.getKey(),countOfShops.get(map.getKey()),map.getValue()));
+        });
+        System.out.println(result);
+        System.out.println(temp);
+        System.out.println(countOfShops);
+        return result.stream().sorted(Comparator.comparing(CountryStat::getCountryOfOrigin)).collect(Collectors.toList());
     }
 }
 
