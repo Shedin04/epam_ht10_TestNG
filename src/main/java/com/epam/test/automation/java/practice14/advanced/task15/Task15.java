@@ -14,8 +14,8 @@ public class Task15 {
         Map<String,BigDecimal> temp = new HashMap<>();
         Map<String,Integer> countOfShops = new HashMap<>();
 
-        BigDecimal[] tempPrice = {storePriceList.stream().findFirst().orElse(null).getPrice()};
-        String[] tempCountry = {goodList.stream().findFirst().orElse(null).getCountryOfOrigin()};
+        BigDecimal[] tempPrice = {storePriceList.get(0).getPrice()};
+        String[] tempCountry = {goodList.stream().map(Good::getCountryOfOrigin).collect(Collectors.joining())};
         int[] i = {1};
 
         goodList.forEach(good -> storePriceList.forEach(store -> {
@@ -33,8 +33,9 @@ public class Task15 {
             }
         }));
 
+        List<String>list = goodList.stream().map(Good::getCountryOfOrigin).collect(Collectors.toList());
         temp.forEach((key, value) -> result.add(new CountryStat(key, countOfShops.get(key), value)));
-        goodList.stream().map(Good::getCountryOfOrigin).collect(Collectors.toList()).stream().filter(country -> !temp.containsKey(country)).forEach(country -> result.add(new CountryStat(country,0,BigDecimal.ZERO)));
+        list.stream().filter(country -> !temp.containsKey(country)).forEach(country -> result.add(new CountryStat(country,0,BigDecimal.ZERO)));
         return result.stream().sorted(Comparator.comparing(CountryStat::getCountryOfOrigin)).collect(Collectors.toList());
     }
 }
